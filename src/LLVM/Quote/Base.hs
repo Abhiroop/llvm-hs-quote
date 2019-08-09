@@ -254,7 +254,7 @@ instance QQExp A.NamedInstruction [L.BasicBlock] where
   qqExpM = qqNamedInstructionE
 instance QQExp A.LabeledInstruction [L.BasicBlock] where
   qqExpM = qqLabeledInstructionE
-instance QQExp A.MetadataNode L.MetadataNode where
+instance QQExp A.MetadataNode L.MDNode where
   qqExpM = qqMetadataNodeE
 instance QQExp A.Metadata L.Metadata where
   qqExpM = qqMetadata
@@ -284,8 +284,8 @@ qqDefinitionE (A.GlobalDefinition v) =
     [||L.GlobalDefinition <$> $$(qqExpM v)||]
 qqDefinitionE (A.TypeDefinition n v) =
     [||L.TypeDefinition <$> $$(qqExpM n) <*> $$(qqExpM v)||]
-qqDefinitionE (A.MetadataNodeDefinition i vs) =
-    [||L.MetadataNodeDefinition <$> $$(qqExpM i) <*> $$(qqExpM vs)||]
+-- qqDefinitionE (A.MetadataNodeDefinition i vs) =
+--     [||L.MDNodeDefinition <$> $$(qqExpM i) <*> $$(qqExpM vs)||]
 qqDefinitionE (A.NamedMetadataDefinition i vs) =
     [||L.NamedMetadataDefinition <$> $$(qqExpM i) <*> $$(qqExpM vs)||]
 qqDefinitionE (A.ModuleInlineAssembly s) =
@@ -338,9 +338,9 @@ qqLandingPadClauseE (A.Filter x1) =
 
 qqFastMathFlagsE :: Conversion A.FastMathFlags L.FastMathFlags
 qqFastMathFlagsE A.NoFastMathFlags =
-  [||pure L.NoFastMathFlags||]
-qqFastMathFlagsE A.UnsafeAlgebra =
-  [||pure L.UnsafeAlgebra||]
+  [||pure L.noFastMathFlags||]
+-- qqFastMathFlagsE A.UnsafeAlgebra =
+--   [||pure L.UnsafeAlgebra||]
 qqFastMathFlagsE (A.FastMathFlags x1 x2 x3 x4) =
   [||L.FastMathFlags <$> $$(qqExpM x1) <*> $$(qqExpM x2) <*> $$(qqExpM x3) <*> $$(qqExpM x4)||]
 
@@ -567,11 +567,11 @@ qqMetadataNodeIDE :: Conversion A.MetadataNodeID L.MetadataNodeID
 qqMetadataNodeIDE (A.MetadataNodeID x1) =
   [||L.MetadataNodeID <$> $$(qqExpM x1)||]
 
-qqMetadataNodeE :: Conversion A.MetadataNode L.MetadataNode
+qqMetadataNodeE :: Conversion A.MetadataNode L.MDNode
 qqMetadataNodeE (A.MetadataNode x1) =
-  [||L.MetadataNode <$> $$(qqExpM x1)||]
-qqMetadataNodeE (A.MetadataNodeReference x1) =
-  [||L.MetadataNodeReference <$> pure x1||]
+  [||L.MDNode <$> $$(qqExpM x1)||]
+-- qqMetadataNodeE (A.MetadataNodeReference x1) =
+--   [||L.MetadataNodeReference <$> pure x1||]
 
 qqMetadata :: Conversion A.Metadata L.Metadata
 qqMetadata (A.MDString s) =
