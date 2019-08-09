@@ -3,4 +3,3 @@ packages:
 - '.'
 extra-deps:
 - llvm-hs-pure-5.1.1
-- mainland-pretty-0.2.7.2

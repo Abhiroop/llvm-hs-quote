@@ -17,6 +17,7 @@ import Data.Word
 import Data.Char (ord)
 import Data.ByteString.Short (ShortByteString)
 import Text.PrettyPrint.Mainland
+import Text.PrettyPrint.Mainland.Class
 
 import qualified Data.ByteString.Char8 as BS
 

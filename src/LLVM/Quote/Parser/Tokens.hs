@@ -11,6 +11,7 @@ import qualified Data.Map as Map
 import Data.Bits
 import Data.Word
 import Text.PrettyPrint.Mainland
+import Text.PrettyPrint.Mainland.Class
 import Data.List (foldl')
 
 import LLVM.Prelude
